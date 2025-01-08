@@ -45,13 +45,6 @@ public class TheatreController {
 
     @PatchMapping(path = "partial_update")
     public String partialUpdate(@RequestBody Theatre theatre) {
-        Theatre original = service.getTheatreById(theatre.getId());
-        if (theatre.getLocation() == null) {
-            theatre.setLocation(original.getLocation());
-        }
-        if (theatre.getName() == null) {
-            theatre.setName(original.getName());
-        }
         return service.updateTheatre(theatre, theatre.getId());
     }
 }

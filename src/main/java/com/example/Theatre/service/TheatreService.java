@@ -28,8 +28,15 @@ public class TheatreService {
         return repository.addTheatre(theatre);
     }
 
-    public String updateTheatre(Theatre theater, int id) {
-        return repository.updateTheatre(theater, id);
+    public String updateTheatre(Theatre theatre, int id) {
+        Theatre original = getTheatreById(theatre.getId());
+        if (theatre.getLocation() == null) {
+            theatre.setLocation(original.getLocation());
+        }
+        if (theatre.getName() == null) {
+            theatre.setName(original.getName());
+        }
+        return repository.updateTheatre(theatre, id);
     }
 
     public String deleteTheatre(int id) {

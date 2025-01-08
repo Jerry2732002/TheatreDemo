@@ -1,6 +1,7 @@
 package com.example.Theatre.dao;
 
 import com.example.Theatre.entity.Theatre;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -9,12 +10,9 @@ import java.util.List;
 
 @Repository
 public class TheatreRepository {
-    private static final String URL = "jdbc:mysql://localhost:3306/springdemo";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "password";
-    private Connection connection;
+    private final Connection connection;
 
-    public TheatreRepository() throws SQLException {
+    public TheatreRepository(@Value("${database.url}") String URL, @Value("${database.username}") String USERNAME, @Value("${database.password}") String PASSWORD) throws SQLException {
         this.connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
     }
 
@@ -40,6 +38,7 @@ public class TheatreRepository {
 
     public Theatre getTheatreById(int id) {
         String query = "SELECT * FROM Theatres WHERE TheatreID = ?";
+
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -60,6 +59,7 @@ public class TheatreRepository {
 
     public String addTheatre(Theatre theatre) {
         String query = "INSERT INTO Theatres (Name, Location) VALUES (?,?);";
+
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, theatre.getName());
             statement.setString(2, theatre.getLocation());
@@ -77,6 +77,7 @@ public class TheatreRepository {
 
     public String updateTheatre(Theatre theatre, int id) {
         String query = "UPDATE Theatres SET NAME = ?, Location = ? WHERE TheatreID = ?;";
+
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, theatre.getName());
             statement.setString(2, theatre.getLocation());
@@ -95,6 +96,7 @@ public class TheatreRepository {
 
     public String deleteTheatre(int id) {
         String query = "DELETE FROM Theatres WHERE TheatreID = ?;";
+
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setInt(1, id);
 
