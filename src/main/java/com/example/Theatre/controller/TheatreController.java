@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/theatre")
 public class TheatreController {
 
     private final TheatreService service;
@@ -18,33 +17,33 @@ public class TheatreController {
         this.service = service;
     }
 
-    @GetMapping(path = "list", produces = "application/json")
+    @GetMapping(path = "theatre", produces = "application/json")
     public List<Theatre> getAllTheatres() {
         return service.getAllTheatres();
     }
 
-    @GetMapping(path = "get", produces = "application/json")
-    public Theatre getTheatreById(@RequestParam("id") int id) {
+    @GetMapping(path = "theatre/{id}", produces = "application/json")
+    public Theatre getTheatreById(@PathVariable("id") int id) {
         return service.getTheatreById(id);
     }
 
-    @PostMapping(path = "add")
+    @PostMapping(path = "theatre")
     public String addTheatre(@RequestBody Theatre theatre) {
         return service.addTheatre(theatre);
     }
 
-    @PutMapping(path = "update")
-    public String updateTheatre(@RequestBody Theatre theatre) {
-        return service.updateTheatre(theatre, theatre.getId());
+    @PutMapping(path = "theatre/{id}")
+    public String updateTheatre(@RequestBody Theatre theatre, @PathVariable("id") int id) {
+        return service.updateTheatre(theatre, id);
     }
 
-    @DeleteMapping(path = "delete/{id}")
+    @DeleteMapping(path = "theatre/{id}")
     public String deleteTheatre(@PathVariable("id") int id) {
         return service.deleteTheatre(id);
     }
 
-    @PatchMapping(path = "partial_update")
-    public String partialUpdate(@RequestBody Theatre theatre) {
-        return service.updateTheatre(theatre, theatre.getId());
+    @PatchMapping(path = "theatre/{id}")
+    public String partialUpdate(@RequestBody Theatre theatre, @PathVariable("id") int id) {
+        return service.updateTheatre(theatre, id);
     }
 }
