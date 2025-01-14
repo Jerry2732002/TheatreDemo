@@ -1,9 +1,5 @@
 package com.example.Theatre.entity;
 
-import lombok.Data;
-import org.springframework.validation.annotation.Validated;
-
-@Data
 public class Theatre {
     private int id;
     private String name;
@@ -19,29 +15,29 @@ public class Theatre {
         this.location = location;
     }
 
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public void setLocation(String location) {
-//        this.location = location;
-//    }
-//
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public String getLocation() {
-//        return location;
-//    }
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
 
     @Override
     public String toString() {
